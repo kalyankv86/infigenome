@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Dna, GraduationCap, NotebookPen, Briefcase } from 'lucide-react';
+import { Dna, GraduationCap, NotebookPen, Briefcase, Scissors, FlaskConical, Waves } from 'lucide-react';
 import ContactForm from '../components/ContactForm';
 
 const services=[
@@ -17,10 +17,10 @@ const programs=[
 ];
 
 const workshops=[
-  ['workshop-1.png','Introduction to Gene Editing Using CRISPR','https://workshop.cutm.ac.in/'],
-  ['workshop-2.png','Basics of PCR & Its Applications','https://workshop.cutm.ac.in/'],
-  ['workshop-3.png','Oxford Nanopore Sequencing & Data Analysis','https://workshop.cutm.ac.in/']
-];
+  [Scissors,'Introduction to Gene Editing Using CRISPR','https://workshop.cutm.ac.in/'],
+  [FlaskConical,'Basics of PCR & Its Applications','https://workshop.cutm.ac.in/'],
+  [Waves,'Oxford Nanopore Sequencing & Data Analysis','https://workshop.cutm.ac.in/']
+] as const;
 
 const lab=Array.from({length:11},(_,i)=>`lab-${i+1}.jpg`);
 
@@ -123,14 +123,12 @@ export default function Home(){
         <div className="container">
           <div className="sec-head"><h2>Up Coming Workshops</h2><div className="sec-rule"/></div>
           <div className="grid gap-7 md:grid-cols-3">
-            {workshops.map(([img,t,href],i)=>(
-              <article className="card overflow-hidden text-center" key={t}>
-                <Image src={'/images/'+img} alt={t} width={480} height={300} className="aspect-[8/5] w-full object-cover"/>
-                <div className="px-6 py-6">
-                  <div className="text-xs font-bold uppercase tracking-[.16em] text-[color:var(--brand)]">Workshop {i+1}</div>
-                  <h3 className="mt-2 text-lg font-bold">{t}</h3>
-                  <a href={href} className="mt-4 inline-block text-sm font-bold text-[color:var(--brand)] hover:text-[color:var(--brand-900)]">Register →</a>
-                </div>
+            {workshops.map(([Icon,t,href],i)=>(
+              <article className="card iconbox" key={t}>
+                <div className="ic"><Icon size={30} strokeWidth={1.6}/></div>
+                <div className="text-xs font-bold uppercase tracking-[.16em] text-[color:var(--brand)]">Workshop {i+1}</div>
+                <h3 className="mt-2">{t}</h3>
+                <a href={href} className="mt-4 inline-block text-sm font-bold text-[color:var(--brand)] hover:text-[color:var(--brand-900)]">Register →</a>
               </article>
             ))}
           </div>
