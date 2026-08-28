@@ -1,0 +1,11 @@
+# /etc/systemd/system/infigenome-deploy.service
+[Unit]
+Description=Infigenome auto-deploy (poll origin/main and redeploy on change)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/opt/infigenome/ops/auto-deploy.sh
+# deploy.sh runs npm ci + next build; give it room
+TimeoutStartSec=1200

@@ -8,6 +8,10 @@ REPO="${REPO:-https://github.com/kalyankv86/infigenome.git}"
 BRANCH="${BRANCH:-main}"
 WEB_STANDALONE="$APP_DIR/apps/web/.next/standalone/apps/web"
 
+# The tree ends up owned by www-data; git runs here as root.
+git config --global --get-all safe.directory 2>/dev/null | grep -qx "$APP_DIR" \
+  || git config --global --add safe.directory "$APP_DIR"
+
 cd "$APP_DIR"
 
 if [ -d .git ]; then

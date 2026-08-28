@@ -36,6 +36,31 @@ It refreshes the code from `origin/main` (preserving `apps/api/.env`), runs
 `static/` + `public/` into the standalone bundle, fixes ownership to
 `www-data`, restarts both services, and health-checks them.
 
+## Automatic deploy (poll origin/main)
+
+`infigenome-deploy.timer` runs `ops/auto-deploy.sh` every 2 minutes; when
+`origin/main` has moved past the deployed commit it runs `deploy.sh`. No inbound
+access or GitHub credentials needed — **every push to `main` goes live within
+~2 minutes.**
+
+Install once:
+
+```bash
+sudo cp /opt/infigenome/ops/systemd/infigenome-deploy.{service,timer} /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now infigenome-deploy.timer
+```
+
+Observe / control:
+
+```bash
+systemctl list-timers infigenome-deploy.timer
+tail -f /var/log/infigenome-deploy.log
+journalctl -u infigenome-deploy.service -f
+sudo systemctl start infigenome-deploy.service   # force a check now
+sudo systemctl disable --now infigenome-deploy.timer   # pause auto-deploy
+```
+
 ## nginx
 
 The `infigenome.com` vhost already exists. If it changed:
