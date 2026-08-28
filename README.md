@@ -10,10 +10,16 @@ WordPress-free rebuild of the CenOmics site for `https://infigenome.com`.
 - Light international biotech visual system (no black backgrounds)
 
 ## Current implementation
-A production-oriented Next.js shell with Home, About, Services, Blog and Contact
-routes, migrated legacy imagery, SEO metadata, a Fastify API with a health
-endpoint and a `/api/leads` endpoint that persists enquiries to PostgreSQL, and a
-wired contact form.
+A single-page site (Hero, About, Services, Completed Programs, Upcoming
+Workshops, Lab, Team, Contact) cloned from the live CenOmics site with the brand
+renamed to Infigenome and its media re-hosted locally, plus SEO metadata, a
+Fastify API with a health endpoint and a `/api/leads` endpoint that persists
+enquiries to PostgreSQL, and a wired contact form.
+
+> Contact details in `components/Footer.tsx` / `app/page.tsx` (email
+> `infigenome@gmail.com`, Instagram/Facebook `/infigenome`) are name-swapped
+> placeholders — replace with real Infigenome accounts. Phone is carried over
+> from the source site.
 
 ## Prerequisites
 - Node.js 22+ (24 recommended)
