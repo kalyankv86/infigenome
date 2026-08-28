@@ -1,0 +1,18 @@
+# /etc/systemd/system/infigenome-web.service
+[Unit]
+Description=Infigenome web (Next.js)
+After=network.target infigenome-api.service
+
+[Service]
+Type=simple
+User=infigenome
+WorkingDirectory=/opt/infigenome/apps/web
+Environment=NODE_ENV=production
+Environment=PORT=3000
+Environment=NEXT_PUBLIC_SITE_URL=https://infigenome.com
+ExecStart=/usr/bin/npm run start
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
