@@ -30,22 +30,23 @@ export default function ContactForm(){
       setStatus({kind:'error',message:'Something went wrong. Please email us directly.'});
     }
   }
+  const field='rounded-md border border-[color:var(--line)] bg-white px-4 py-3 font-normal text-[color:var(--ink)] outline-none transition focus:border-[color:var(--brand)] focus:ring-2 focus:ring-[color:var(--brand)]/20';
   return (
-    <form className="card grid gap-5" onSubmit={onSubmit}>
-      <label className="grid gap-2 font-semibold">Name
-        <input className="rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none focus:border-sky-500" name="name" required minLength={2}/>
+    <form className="card grid gap-5 p-7" onSubmit={onSubmit}>
+      <label className="grid gap-2 text-sm font-bold text-[color:var(--ink)]">Name
+        <input className={field} name="name" required minLength={2}/>
       </label>
-      <label className="grid gap-2 font-semibold">Email
-        <input type="email" className="rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none focus:border-sky-500" name="email" required/>
+      <label className="grid gap-2 text-sm font-bold text-[color:var(--ink)]">Email
+        <input type="email" className={field} name="email" required/>
       </label>
-      <label className="grid gap-2 font-semibold">Message
-        <textarea className="min-h-36 rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none focus:border-sky-500" name="message" required minLength={5}/>
+      <label className="grid gap-2 text-sm font-bold text-[color:var(--ink)]">Message
+        <textarea className={`min-h-36 ${field}`} name="message" required minLength={5}/>
       </label>
       <button className="btn btn-primary justify-center" type="submit" disabled={status.kind==='sending'}>
-        {status.kind==='sending'?'Sending…':'Send enquiry'}
+        {status.kind==='sending'?'Sending…':'Send Enquiry'}
       </button>
       {status.message&&(
-        <p role="status" className={status.kind==='error'?'text-sm text-red-600':'text-sm text-emerald-700'}>{status.message}</p>
+        <p role="status" className={status.kind==='error'?'text-sm font-semibold text-red-600':'text-sm font-semibold text-[color:var(--brand-900)]'}>{status.message}</p>
       )}
     </form>
   );

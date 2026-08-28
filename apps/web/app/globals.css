@@ -1,3 +1,50 @@
 @import "tailwindcss";
-:root{--ink:#143244;--muted:#607787;--blue:#0b6fa4;--teal:#14a39b;--soft:#f3f9fc;--line:#dce9ef}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--ink);font-family:Arial,Helvetica,sans-serif}a{text-decoration:none;color:inherit}.container{width:min(1180px,calc(100% - 40px));margin:auto}.section{padding:92px 0}.eyebrow{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:800}.display{font-size:clamp(42px,6vw,76px);line-height:1.03;letter-spacing:-.045em;font-weight:800}.lead{font-size:19px;line-height:1.7;color:var(--muted)}.btn{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:14px 22px;font-weight:700}.btn-primary{background:var(--blue);color:#fff}.btn-light{background:#fff;color:var(--ink);border:1px solid var(--line)}.grid{display:grid;gap:24px}.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:0 12px 35px rgba(20,50,68,.06)}
+
+:root{
+  --brand:#16969f;      /* primary teal (Elementor accent on the original) */
+  --brand-600:#0f7f88;
+  --brand-900:#0b4d51;  /* deep teal for hovers / dark sections */
+  --ink:#161716;        /* headings */
+  --body:#474747;       /* body copy */
+  --muted:#6b7176;
+  --soft:#f7f7f7;       /* alternating section background */
+  --line:#e6e8e8;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:#fff;color:var(--body);
+  font-family:var(--font-assistant),Assistant,"Segoe UI",Arial,sans-serif;
+  font-size:17px;line-height:1.7;
+}
+a{text-decoration:none;color:inherit}
+h1,h2,h3,h4{color:var(--ink);line-height:1.2;font-weight:700}
+
+.container{width:min(1160px,calc(100% - 40px));margin:auto}
+.section{padding:88px 0}
+.section-soft{background:var(--soft)}
+
+/* Centered section header + teal divider, like the original Elementor dividers */
+.sec-head{text-align:center;max-width:760px;margin:0 auto 52px}
+.sec-head h2{font-size:clamp(28px,4vw,36px);font-weight:800;letter-spacing:-.01em}
+.sec-head p{margin-top:14px;color:var(--muted);font-size:18px}
+.sec-rule{width:66px;height:4px;border-radius:2px;background:var(--brand);margin:18px auto 0}
+
+.eyebrow{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--brand);font-weight:700}
+
+.btn{display:inline-flex;align-items:center;gap:10px;border-radius:6px;padding:13px 26px;font-weight:700;font-size:15px;letter-spacing:.02em;transition:background .15s,color .15s,border-color .15s}
+.btn-primary{background:var(--brand);color:#fff}
+.btn-primary:hover{background:var(--brand-900)}
+.btn-ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.7)}
+.btn-ghost:hover{background:#fff;color:var(--ink);border-color:#fff}
+.btn-outline{background:#fff;color:var(--brand);border:2px solid var(--brand)}
+.btn-outline:hover{background:var(--brand);color:#fff}
+
+.card{background:#fff;border:1px solid var(--line);border-radius:10px}
+
+/* icon-box (services) */
+.iconbox{text-align:center;padding:34px 22px}
+.iconbox .ic{width:74px;height:74px;border-radius:999px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;background:rgba(22,150,159,.1);color:var(--brand)}
+.iconbox h3{font-size:19px;font-weight:700}
+.iconbox p{margin-top:10px;font-size:15px;color:var(--muted);line-height:1.65}
