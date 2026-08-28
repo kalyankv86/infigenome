@@ -5,8 +5,8 @@ WordPress-free rebuild of the CenOmics site for `https://infigenome.com`.
 ## Stack
 - Next.js + React + TypeScript frontend (`apps/web`)
 - Node.js + Fastify API (`apps/api`)
-- PostgreSQL
-- Nginx / Cloudflare at the edge (deployment-time, not part of this repo)
+- MySQL 8 (`leads` table)
+- Nginx origin behind Cloudflare (TLS at the edge; see `DEPLOYMENT.md`)
 - Light international biotech visual system (no black backgrounds)
 
 ## Current implementation
@@ -22,11 +22,11 @@ enquiries to PostgreSQL, and a wired contact form.
 > from the source site.
 
 ## Prerequisites
-- Node.js 22+ (24 recommended)
-- A local PostgreSQL server, e.g.:
+- Node.js 20+
+- A local MySQL 8 server, e.g.:
   ```bash
-  brew install postgresql@17
-  brew services start postgresql@17
+  brew install mysql
+  brew services start mysql
   ```
 
 ## Local development
@@ -54,29 +54,27 @@ Run them individually with `npm run dev:web` / `npm run dev:api`.
 ### Database
 
 The schema lives in [`db/schema.sql`](db/schema.sql). `./db/setup.sh` creates the
-`infigenome` role + database and applies it. To re-apply after a schema change:
+`infigenome` database + user and applies it. To re-apply after a schema change:
 
 ```bash
-psql "$DATABASE_URL" -f db/schema.sql
+mysql infigenome < db/schema.sql
 ```
 
 Inspect captured leads:
 
 ```bash
-psql "$DATABASE_URL" -c "SELECT created_at, name, email FROM leads ORDER BY created_at DESC LIMIT 20;"
+mysql infigenome -e "SELECT id, created_at, name, email FROM leads ORDER BY id DESC LIMIT 20;"
 ```
 
-## Production build
+## Production
+
+See [`DEPLOYMENT.md`](DEPLOYMENT.md) — deploys in place at `/opt/infigenome` via
+`ops/deploy.sh` (Next.js standalone on :3100 + Fastify API on :4100, both under
+systemd, nginx origin behind Cloudflare, MySQL).
 
 ```bash
-npm run build        # builds web (standalone) + compiles the API to apps/api/dist
-npm run start        # starts the web server (next start)
-node apps/api/dist/server.js   # start the API (with real env vars set)
+npm run build   # builds web (standalone) + compiles the API to apps/api/dist
 ```
-
-Provide `DATABASE_URL`, `PORT` and `CORS_ORIGINS` to the API process and
-`NEXT_PUBLIC_SITE_URL` / `NEXT_PUBLIC_API_URL` at web build time. Put
-Nginx / Cloudflare in front; keep PostgreSQL and the API private.
 
 ## Migration still required
 See [`MIGRATION_NOTES.md`](MIGRATION_NOTES.md). Outstanding items include parsing

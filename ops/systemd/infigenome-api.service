@@ -1,19 +1,20 @@
 # /etc/systemd/system/infigenome-api.service
 [Unit]
 Description=Infigenome API (Fastify)
-After=network.target postgresql.service
-Wants=postgresql.service
+After=network.target mysql.service
+Wants=mysql.service
 
 [Service]
 Type=simple
-User=infigenome
+User=www-data
+Group=www-data
 WorkingDirectory=/opt/infigenome/apps/api
-Environment=NODE_ENV=production
-Environment=PORT=4000
 EnvironmentFile=/opt/infigenome/apps/api/.env
-ExecStart=/usr/bin/node dist/server.js
-Restart=on-failure
-RestartSec=3
+ExecStart=/usr/bin/node /opt/infigenome/apps/api/dist/server.js
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target

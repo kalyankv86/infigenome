@@ -1,7 +1,9 @@
 'use client';
 import {useState} from 'react';
 
-const API=process.env.NEXT_PUBLIC_API_URL||'http://localhost:4000';
+// Empty in production -> same-origin request to /api/leads (nginx proxies it).
+// Set NEXT_PUBLIC_API_URL for local dev where the API is on another port.
+const API=process.env.NEXT_PUBLIC_API_URL||'';
 type Status={kind:'idle'|'sending'|'ok'|'error';message?:string};
 
 export default function ContactForm(){
