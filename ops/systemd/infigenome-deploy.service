@@ -6,6 +6,8 @@ Wants=network-online.target
 
 [Service]
 Type=oneshot
+# oneshot services get a minimal env; git --global and npm need HOME
+Environment=HOME=/root
 ExecStart=/opt/infigenome/ops/auto-deploy.sh
 # deploy.sh runs npm ci + next build; give it room
 TimeoutStartSec=1200
