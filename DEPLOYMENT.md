@@ -92,5 +92,3 @@ journalctl -u infigenome-web -f
 Still outstanding: real contact details (see README note), 301 redirects from
 legacy URLs, `sitemap.xml` / `robots.txt` / structured data, analytics, and
 wiring leads to email/CRM.
-
-<!-- auto-deploy test: 2026-08-28T15:40:52Z -->
